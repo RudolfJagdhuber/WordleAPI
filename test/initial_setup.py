@@ -10,7 +10,6 @@ This script is not used in Production. Credentials are dummies for testing.
 
 import hashlib
 import json
-from textwrap import indent
 import requests
 
 
