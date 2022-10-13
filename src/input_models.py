@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""Defines response input data structures used in the API endpoints."""
+"""Defines input data structures used in the API endpoints."""
 
 __author__ = 'Dr. Rudolf Jagdhuber'
 __status__ = 'Development'

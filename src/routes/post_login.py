@@ -36,9 +36,9 @@ def add_route_post_login(app: fastapi.FastAPI):
 
         result = pd.read_sql(
             text('SELECT HEX(id) as id FROM users WHERE '
-                 'name = :name AND password_hash = UNHEX(:pw_hexdigest)'),
+                 'name = :name AND password_hash = UNHEX(:password)'),
             con=DbEngine.instance(),
-            params={'name': input.name, 'pw_hexdigest': input.password}
+            params={'name': input.name, 'password': input.password}
         ).to_dict('records')
 
         if not result:

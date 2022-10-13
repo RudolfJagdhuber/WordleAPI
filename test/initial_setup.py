@@ -56,12 +56,12 @@ for i in range(3):
     game = requests.post(f'{API_HOST}/guess', json={
         'game_id': game['id'], 'guess': GUESSES[i], 'token': API_TOKEN}).json()
 
-# Store the generated data in text file
-with open('test_info.json', 'w') as f:
+# Store the generated data in a text file
+with open('test_data.json', 'w') as f:
     json.dump({'users': users, 'game': game}, f, indent=4)
 
-# Load the generated data from text file
-with open('test_info.json', 'r') as f:
+# Load the generated data from the text file
+with open('test_data.json', 'r') as f:
     data = json.load(f)
 
 print(json.dumps(data, indent=2))

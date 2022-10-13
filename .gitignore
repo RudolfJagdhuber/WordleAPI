@@ -2,4 +2,4 @@ __pycache__
 *.pyc
 .vscode/
 misc/
-test/test_info.json
+test/test_data.json
