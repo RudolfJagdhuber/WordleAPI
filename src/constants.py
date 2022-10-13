@@ -7,5 +7,4 @@ __status__ = 'Development'
 
 
 GAME_ACTIVE: int = 0
-GAME_WON: int = 1
 GAME_LOST: int = -1

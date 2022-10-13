@@ -17,16 +17,16 @@ __author__ = 'Dr. Rudolf Jagdhuber'
 __status__ = 'Development'
 
 import os
-import json
 
 import fastapi
 from sqlalchemy import text
 
 from src.helpers import DbEngine
-from src.constants import GAME_ACTIVE, GAME_WON, GAME_LOST
+from src.constants import GAME_ACTIVE, GAME_LOST
 from src.response_models import (
     WordCorrectnessResponse, GuessListResponse, GameResponse, SimpleResponse
 )
+from src.input_models import GuessInput
 from src.routes.get_game import get_game
 
 
@@ -50,22 +50,21 @@ def add_route_post_guess(app: fastapi.FastAPI):
               response_model=GameResponse,
               responses={403: {'model': SimpleResponse},
                          404: {'model': SimpleResponse}})
-    async def make_a_guess(game_id: str,
-                           guess: str,
-                           token: str) -> GameResponse:
+    async def make_a_guess(input: GuessInput) -> GameResponse:
         """Make a guess for a game and get the correctness of this guess."""
-        if token != os.environ['API_TOKEN']:
+        if input.token != os.environ['API_TOKEN']:
             return fastapi.responses.JSONResponse(
                 content={'message': 'Wrong API token.'}, status_code=403)
 
         # Get the game data for the given ID, and check if its active
-        game = get_game(id=game_id, include_solution=True, only_active=True)
+        game = get_game(id=input.game_id, include_solution=True,
+                        only_active=True)
         if not game.__dict__.get('id'):  # Error Response has no id field
             return fastapi.responses.JSONResponse(
                 content={'message': 'Active game not found.'}, status_code=404)
 
         # Check against the solution
-        response = check_guess(guess, game.word)
+        response = check_guess(input.guess, game.word)
         guesses = game.guesses or GuessListResponse(__root__=[])
         guesses.__root__.append(response)
         is_solved = all([x.correct_position for x in response.__root__])
@@ -77,11 +76,12 @@ def add_route_post_guess(app: fastapi.FastAPI):
                 text('UPDATE games SET guesses = :guesses, solved = :solved '
                      'WHERE id = UNHEX(:game_id)'),
                 guesses=guesses.json(),
-                solved=(GAME_WON if is_solved else
+                solved=(len(guesses.__root__) if is_solved else
                         GAME_LOST if is_lost else
                         GAME_ACTIVE),
-                game_id=game_id
+                game_id=input.game_id
             )
 
         # Reload the game from the DB to ensure that the data has been stored
-        return get_game(id=game_id, include_solution=(is_solved or is_lost))
+        return get_game(id=input.game_id,
+                        include_solution=(is_solved or is_lost))

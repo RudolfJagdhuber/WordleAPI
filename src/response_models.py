@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""Defines response data structures used in the API endpoints."""
+"""Defines response response data structures used in the API endpoints."""
 
 __author__ = 'Dr. Rudolf Jagdhuber'
 __status__ = 'Development'
@@ -10,6 +10,16 @@ import pydantic
 
 class SimpleResponse(pydantic.BaseModel):
     message: str
+
+
+class GenericUserResponse(pydantic.BaseModel):
+    id: str
+    name: str
+    password: str
+
+
+class LoginResponse(pydantic.BaseModel):
+    id: str
 
 
 class LetterCorrectnessResponse(pydantic.BaseModel):
