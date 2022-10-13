@@ -32,16 +32,16 @@ Optionally, you can also specify the following environment variables
 The default values for these are `0.0.0.0`, `8080`, `""`. If not executed in a
 docker context, you might want to change the host to `localhost` instead. The
 `API_TOKEN` can be seen as a password, which protects certain endpoints from
-misuse or outside attacks. Non public endpoints, like for example `/register`,
+misuse or outside attacks. Non public endpoints, like for example `/new_game`,
 can only be accessed, if the correct token is provided. The `API_ROOT_PATH` is
 used if the root of the API is not the webservers root.
 
 An example using the mysql:8.0.30 image from dockerhub (with default user
 *root* and password *my-secret*):
 ```sh
-docker run -d --name dicechess-api -p 8080:8080 \
+docker run -d --name wordle-api -p 8080:8080 \
     -e DB_HOST='localhost' \
-    -e DB_DATABASE='dicechess' \
+    -e DB_DATABASE='wordle' \
     -e DB_USER='root' \
     -e DB_PASSWORD='my-secret' \
     jagdhuber/wordle-api:latest
@@ -56,7 +56,7 @@ FastAPI. It is available at the root of the API deployment. In the above
 example (with port 8080 mapped to 8080 of localhost), this would be at
 *localhost:8080*. 
 
-The basic gameplay would be to create a new game with the `PUT new_game`
+The basic gameplay would be to create a new game with the `POST new_game`
 route. In the following, the player can make guesses via the `POST guess`
 route. 
 
@@ -96,6 +96,6 @@ game and set the `solved` field to `1`.
     ]
   ],
   "created": "2022-10-09 23:54:08",
-  "solved": 1
+  "solved": 3
 }
 ```
