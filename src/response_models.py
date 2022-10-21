@@ -39,9 +39,14 @@ class GuessListResponse(pydantic.BaseModel):
 class GameResponse(pydantic.BaseModel):
     id: str
     player: str
+    word_id: int
     word: str | None
     length: int
     tries: int
     guesses: GuessListResponse | None
     created: str
     solved: int
+
+
+class GameListResponse(pydantic.BaseModel):
+    __root__: list[GameResponse]

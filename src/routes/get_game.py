@@ -23,9 +23,19 @@ def get_game(id: str,
              only_active: bool = False) -> GameResponse:
     """Return a game by its id."""
     game = pd.read_sql(
-        text('SELECT HEX(id) as id, HEX(player) as player, word, tries, '
-             'guesses, DATE_FORMAT(created, "%Y-%m-%d %T") as created, solved '
-             'FROM games WHERE id = UNHEX(:id)'),
+        text('''
+             SELECT
+                 HEX(id) as id,
+                 HEX(player) as player,
+                 word_id,
+                 word,
+                 tries,
+                 guesses,
+                 DATE_FORMAT(created, "%Y-%m-%d %T") as created,
+                 solved
+             FROM games
+             WHERE id = UNHEX(:id)
+             '''),
         con=DbEngine.instance(),
         params={'id': id}
     ).to_dict('records')

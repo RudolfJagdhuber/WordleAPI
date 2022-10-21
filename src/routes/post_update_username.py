@@ -37,8 +37,11 @@ def add_route_post_update_username(app: fastapi.FastAPI):
                 content={'message': 'Wrong API token.'}, status_code=403)
 
         # Check for existing username
-        if pd.read_sql(text('SELECT count(*) as n FROM users '
-                            'WHERE name = :name'),
+        if pd.read_sql(text('''
+                            SELECT count(*) as n
+                            FROM users
+                            WHERE name = :name
+                            '''),
                        con=DbEngine.instance(),
                        params={'name': input.new_name}).at[0, 'n'] > 0:
             return fastapi.responses.JSONResponse(
@@ -47,9 +50,12 @@ def add_route_post_update_username(app: fastapi.FastAPI):
         # Update the name for the given user_id
         with DbEngine.instance().connect() as db_connection:
             result = db_connection.execute(
-                text('UPDATE users SET name = :new_name '
-                     'WHERE id = UNHEX(:user_id) AND '
-                     'password_hash = UNHEX(:pw_hexdigest)'),
+                text('''
+                     UPDATE users
+                     SET name = :new_name
+                     WHERE id = UNHEX(:user_id)
+                     AND password_hash = UNHEX(:pw_hexdigest)
+                     '''),
                 new_name=input.new_name,
                 user_id=input.user_id,
                 pw_hexdigest=input.password

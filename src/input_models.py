@@ -36,6 +36,7 @@ class NewGameInput(pydantic.BaseModel):
     user_id: str
     length: int
     tries: int
+    word_id: int = -1  # -1 means to draw a random id that was not played yet.
     token: str
 
 

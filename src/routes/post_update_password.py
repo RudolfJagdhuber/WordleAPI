@@ -39,9 +39,14 @@ def add_route_post_update_password(app: fastapi.FastAPI):
         # Update the password for matching old password and user_id
         with DbEngine.instance().connect() as db_connection:
             result = db_connection.execute(
-                text('UPDATE users SET password_hash = UNHEX(:new_password), '
-                     'password_changed = 1 WHERE id = UNHEX(:user_id) AND '
-                     'password_hash = UNHEX(:old_password)'),
+                text('''
+                     UPDATE users
+                     SET
+                         password_hash = UNHEX(:new_password),
+                         password_changed = 1
+                     WHERE id = UNHEX(:user_id)
+                     AND password_hash = UNHEX(:old_password)
+                     '''),
                 new_password=input.new_password,
                 user_id=input.user_id,
                 old_password=input.old_password

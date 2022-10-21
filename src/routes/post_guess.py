@@ -73,8 +73,13 @@ def add_route_post_guess(app: fastapi.FastAPI):
         # Insert guess and update solved status in the games DB entry
         with DbEngine.instance().connect() as db_connection:
             db_connection.execute(
-                text('UPDATE games SET guesses = :guesses, solved = :solved '
-                     'WHERE id = UNHEX(:game_id)'),
+                text('''
+                     UPDATE games
+                     SET
+                         guesses = :guesses,
+                         solved = :solved
+                     WHERE id = UNHEX(:game_id)
+                     '''),
                 guesses=guesses.json(),
                 solved=(len(guesses.__root__) if is_solved else
                         GAME_LOST if is_lost else

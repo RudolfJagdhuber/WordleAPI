@@ -46,10 +46,21 @@ def add_route_post_register_generic(app: fastapi.FastAPI):
         # 'user' + str(1556 + <number of users>)
         with DbEngine.instance().connect() as db_connection:
             db_connection.execute(
-                text('INSERT INTO users (id, name, password_hash) VALUES '
-                     '(UNHEX(:id), (SELECT CONCAT("user", (SELECT count(*)'
-                     ' + 1556 FROM (SELECT * FROM users) as x))), '
-                     'UNHEX(:pw_hex))'),
+                text('''
+                     INSERT INTO users (
+                         id,
+                         name,
+                         password_hash
+                     )
+                     VALUES (
+                         UNHEX(:id),
+                         (SELECT CONCAT("user", (
+                             SELECT count(*)  + 1556
+                             FROM (SELECT * FROM users) as x
+                         ))),
+                         UNHEX(:pw_hex)
+                     )
+                     '''),
                 id=id, pw_hex=hashlib.sha256(password.encode()).hexdigest()
             )
 

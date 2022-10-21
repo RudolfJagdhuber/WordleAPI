@@ -8,6 +8,7 @@ __status__ = 'Development'
 import os
 import secrets
 
+import pandas as pd
 import fastapi
 from sqlalchemy import text
 
@@ -30,17 +31,60 @@ def add_route_post_new_game(app: fastapi.FastAPI):
             return fastapi.responses.JSONResponse(
                 content={'message': 'Wrong API token.'}, status_code=403)
 
-        # TODO: Draw a random word with the intended length
-        word = 'dummy'.upper()
+        # Either select the specified word_id, or a random unplayed word
+        if input.word_id > 0:
+            word = pd.read_sql(
+                text('''
+                     SELECT word
+                     FROM words
+                     WHERE id = :word_id
+                     '''),
+                con=DbEngine.instance(),
+                params={'word_id': input.word_id}
+            ).at[0, 'word']
+            word_id = input.word_id
+        else:
+            word_draw = pd.read_sql(
+                text('''
+                     SELECT id, word
+                     FROM words
+                     WHERE id NOT IN (
+                         SELECT word_id
+                         FROM games
+                         WHERE player = :user_id
+                     )
+                     ORDER BY RAND()
+                     LIMIT 1
+                     '''),
+                con=DbEngine.instance(),
+                params={'user_id': input.user_id}
+            )
+            word_id = word_draw.at[0, 'id']
+            word = word_draw.at[0, 'word']
 
         # Create a new game
         id = secrets.token_hex(16)
         with DbEngine.instance().connect() as db_connection:
             db_connection.execute(
-                text('INSERT INTO games (id, player, word, tries) '
-                     'VALUES (UNHEX(:id), UNHEX(:player), :word, :tries)'),
+                text('''
+                     INSERT INTO games (
+                         id,
+                         player,
+                         word_id,
+                         word,
+                         tries
+                     )
+                     VALUES (
+                         UNHEX(:id),
+                         UNHEX(:player),
+                         :word_id,
+                         :word,
+                         :tries
+                     )
+                     '''),
                 id=id,
                 player=input.user_id,
+                word_id=word_id,
                 word=word,
                 tries=input.tries
             )

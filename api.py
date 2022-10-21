@@ -18,7 +18,8 @@ from src.helpers import DbEngine
 from src.routes import (
     add_route_post_register_generic, add_route_post_update_password,
     add_route_post_update_username, add_route_post_login,
-    add_route_post_new_game, add_route_get_game, add_route_post_guess
+    add_route_post_new_game, add_route_get_game, add_route_get_game_list,
+    add_route_post_guess
 )
 
 
@@ -48,6 +49,7 @@ add_route_post_update_username(api)
 add_route_post_login(api)
 add_route_post_new_game(api)
 add_route_get_game(api)
+add_route_get_game_list(api)
 add_route_post_guess(api)
 
 
