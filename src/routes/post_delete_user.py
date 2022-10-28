@@ -37,20 +37,13 @@ def add_route_post_delete_user(app: fastapi.FastAPI):
             return fastapi.responses.JSONResponse(
                 content={'message': 'Wrong API token.'}, status_code=403)
 
-        # Delete games and update row of users table
+        # Reset row of users table first to verify credentials
         with DbEngine.instance().connect() as db_connection:
-            db_connection.execute(
-                text('''
-                     DELETE FROM games
-                     WHERE player = UNHEX(:user_id)
-                     '''),
-                user_id=input.user_id
-            )
             result = db_connection.execute(
                 text('''
                      UPDATE users
                      SET
-                       name = CONCAT("deleted", id),
+                       name = CONCAT("deleted", HEX(id)),
                        password_hash = NULL,
                        creation_date = NULL,
                        password_changed = 0
@@ -65,6 +58,15 @@ def add_route_post_delete_user(app: fastapi.FastAPI):
         if result.rowcount == 0:
             return fastapi.responses.JSONResponse(
                 content={'message': 'Wrong ID or Password.'}, status_code=404)
+
+        with DbEngine.instance().connect() as db_connection:
+            db_connection.execute(
+                text('''
+                     DELETE FROM games
+                     WHERE player = UNHEX(:user_id)
+                     '''),
+                user_id=input.user_id
+            )
 
         return fastapi.responses.JSONResponse({'message': 'User deleted.'},
                                               200)
