@@ -7,3 +7,4 @@ from src.routes.post_new_game import add_route_post_new_game
 from src.routes.get_game import add_route_get_game
 from src.routes.get_game_list import add_route_get_game_list
 from src.routes.post_guess import add_route_post_guess
+from src.routes.post_delete_user import add_route_post_delete_user

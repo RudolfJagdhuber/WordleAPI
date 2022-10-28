@@ -7,6 +7,7 @@ the username and random password are sent back to the App. The app stores this
 information, which allows basic gameplay without registering first.
 The user can later change the generic username and password to be able to
 fully take control of the account and also login at different devices.
+Generated user names start with 'user'. This is reserved to generic accounts.
 """
 
 __author__ = 'Dr. Rudolf Jagdhuber'

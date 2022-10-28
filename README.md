@@ -1,4 +1,4 @@
-# Open Wordle API <img src="https://user-images.githubusercontent.com/42039093/183470830-59b57576-90aa-4c91-a471-e582f92dde43.png" align="right" height = 120/>
+# Wordle API <img src="https://user-images.githubusercontent.com/42039093/183470830-59b57576-90aa-4c91-a471-e582f92dde43.png" align="right" height = 120/>
 
 This repository contains the source code of a FastAPI handling requests to play
 a word-guessing game in the style of "Wordle". The Production Version of this
@@ -69,9 +69,10 @@ game and set the `solved` field to `1`.
 {
   "id": "3AE74D532A6454A558E6EFFDFA6B4948",
   "player": "2DB259B4517AA513F6E97E078F7CA688",
+  "word_id": 1234,
   "word": "DUMMY",
   "length": 5,
-  "tries": 5,
+  "tries": 6,
   "guesses": [
     [
       { "letter": "M", "correct_position": false, "different_position": true },

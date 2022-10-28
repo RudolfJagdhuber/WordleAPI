@@ -40,6 +40,7 @@ def add_route_get_game_list(app: fastapi.FastAPI):
                  FROM games
                  WHERE player = UNHEX(:user_id)
                  AND SOLVED != 0
+                 ORDER BY word_id
                  '''),
             con=DbEngine.instance(),
             params={'user_id': user_id}

@@ -26,6 +26,12 @@ class ChangeNameInput(pydantic.BaseModel):
     token: str
 
 
+class DeleteUserInput(pydantic.BaseModel):
+    user_id: str
+    password: str
+    token: str
+
+
 class LoginInput(pydantic.BaseModel):
     name: str
     password: str
