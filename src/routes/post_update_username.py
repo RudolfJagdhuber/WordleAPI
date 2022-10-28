@@ -5,6 +5,8 @@
 For a given userID, the username is updated with a new value. A typical
 application would be to change the name of a generic users to an actual
 username.
+The username can not start with 'user' or 'deleted' to not interfere with
+auto-generated names.
 """
 
 __author__ = 'Dr. Rudolf Jagdhuber'
@@ -35,6 +37,11 @@ def add_route_post_update_username(app: fastapi.FastAPI):
         if input.token != os.environ['API_TOKEN']:
             return fastapi.responses.JSONResponse(
                 content={'message': 'Wrong API token.'}, status_code=403)
+
+        # Username may not start with 'user' or 'deleted'
+        if input.new_name.startswith(('user', 'deleted')):
+            return fastapi.responses.JSONResponse(
+                content={'message': 'Name not allowed.'}, status_code=403)
 
         # Check for existing username
         if pd.read_sql(text('''
