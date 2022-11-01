@@ -35,8 +35,10 @@ tags = [
 ]
 
 api = fastapi.FastAPI(
-    title='Open Wordle API',
-    description=('An API to handle requests for the "Open Wordle" App.'),
+    title='Wordle Unlimited API',
+    description=('An API to handle requests for the mobile app '
+                 'Wordle Unlimited.'),
+    version="1.0.0",
     openapi_tags=tags,
     docs_url=f'{os.environ["API_ROOT_PATH"]}/',
     openapi_url=f'{os.environ["API_ROOT_PATH"]}/openapi.json'
