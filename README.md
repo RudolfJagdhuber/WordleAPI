@@ -1,13 +1,18 @@
 # Wordle Unlimited API <img src="https://user-images.githubusercontent.com/42039093/199140941-bb528bfe-a134-43b3-a6ea-1c8a0ca323fc.png" align="right" height = 120/>
 
-This repository contains the source code of a FastAPI handling requests of
-the Android App Wordle Unlimited. The Production Version of this API is 
-deployed in a Kubernetes Cluster and connects to a separate MySQL Database.
+A FastAPI handling requests for the Android App Wordle Unlimited.
+* Android App GitHub Page: https://github.com/RudolfJagdhuber/WordleUnlimitedAndroid
+* Android App at Google Play: https://play.google.com/store/apps/details?id=de.datavisions.wordle
 
-It is hosted on http://82.165.111.42/wordle/api/
+The Production Version of this API is deployed in a Kubernetes Cluster
+with a non-exposed MySQL Database.
+
+The official API is hosted on http://82.165.111.42/wordle/api/
+
+![image](https://user-images.githubusercontent.com/42039093/199236657-a2a86638-f629-451a-badd-8171527e3e53.png)
 
 
-## Installation
+## Local Installation
 
 The image of the most recent main branch version is openly available at
 DockerHub
@@ -15,14 +20,15 @@ DockerHub
 docker pull jagdhuber/wordle-api:latest
 ```
 
-To run the docker image and connect to a mysql database, you need to supply at
-least the following environment variables
+To run the docker image you need to have a mysql database running and supply at
+least the following environment variables to connect to it.
 * `DB_HOST`
 * `DB_DATABASE`
 * `DB_USER`
 * `DB_PASSWORD`
 
-Optionally, you can also specify the following environment variables
+Optionally, you can also specify the following environment variables to
+customize the API.
 * `API_HOST`
 * `API_PORT`
 * `API_TOKEN`
@@ -55,13 +61,17 @@ FastAPI. It is available at the root of the API deployment. In the above
 example (with port 8080 mapped to 8080 of localhost), this would be at
 *localhost:8080*. 
 
-The basic gameplay would be to create a new game with the `POST new_game`
-route. In the following, the player can make guesses via the `POST guess`
-route. 
+The basic gameplay would be:
+1) A new user is generated with `POST register_generic`.
+2) The user creates a new game with `POST new_game`. 
+3) The player can now make guesses via `POST guess`. 
 
-An output for a finished game is given below. The correct word was `DUMMY`.
+A game output returned for example by `POST guess` or `POST new_game` contains
+all revelant metadata, as well as the list of guesses .
+
+Below you can find an example output. The correct word here is `DUMMY`.
 Three guesses were made: `MUSIK`, `SUMME`, `DUMMY`. The last one solved the
-game and set the `solved` field to `1`. 
+game and set the `solved` field to `3` (i.e. the number of guesses needed). 
 
 
 ```json
