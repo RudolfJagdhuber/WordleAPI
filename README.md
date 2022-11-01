@@ -1,9 +1,8 @@
-# Wordle API <img src="https://user-images.githubusercontent.com/42039093/183470830-59b57576-90aa-4c91-a471-e582f92dde43.png" align="right" height = 120/>
+# Wordle Unlimited API <img src="https://user-images.githubusercontent.com/42039093/199140941-bb528bfe-a134-43b3-a6ea-1c8a0ca323fc.png" align="right" height = 120/>
 
-This repository contains the source code of a FastAPI handling requests to play
-a word-guessing game in the style of "Wordle". The Production Version of this
-API is deployed in a Kubernetes Cluster and connects to a separate MySQL
-Database.
+This repository contains the source code of a FastAPI handling requests of
+the Android App Wordle Unlimited. The Production Version of this API is 
+deployed in a Kubernetes Cluster and connects to a separate MySQL Database.
 
 It is hosted on http://82.165.111.42/wordle/api/
 
