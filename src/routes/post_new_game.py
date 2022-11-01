@@ -51,7 +51,7 @@ def add_route_post_new_game(app: fastapi.FastAPI):
                      WHERE id NOT IN (
                          SELECT word_id
                          FROM games
-                         WHERE player = :user_id
+                         WHERE player = UNHEX(:user_id)
                      )
                      ORDER BY RAND()
                      LIMIT 1
