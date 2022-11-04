@@ -1,4 +1,4 @@
-# Wortel Unlimited API <img src="https://user-images.githubusercontent.com/42039093/199140941-bb528bfe-a134-43b3-a6ea-1c8a0ca323fc.png" align="right" height = 120/>
+# Wortel Unlimited API <img src="https://user-images.githubusercontent.com/42039093/200065456-0ee2c416-a195-4d7d-a821-744f8b7257bb.png" align="right" height = 120/>
 
 A FastAPI handling requests for the Android App Wortel Unlimited.
 * Android App GitHub Page: https://github.com/RudolfJagdhuber/WortelUnlimitedAndroid
@@ -9,8 +9,7 @@ with a non-exposed MySQL Database.
 
 The official API is hosted on http://82.165.111.42/wortel/api/
 
-![image](https://user-images.githubusercontent.com/42039093/199236657-a2a86638-f629-451a-badd-8171527e3e53.png)
-
+![image](https://user-images.githubusercontent.com/42039093/200065936-2638fe9b-64e2-47c7-a73e-d935abfc1fce.png)
 
 ## Local Installation
 
