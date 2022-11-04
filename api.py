@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""The main 'Open Wordle' API script.
+"""The main 'Open Wortel' API script.
 
 This script binds all endpoints to the fastapi client and serves it on the
 host and port specified in the respective environment variables
@@ -35,9 +35,9 @@ tags = [
 ]
 
 api = fastapi.FastAPI(
-    title='Wordle Unlimited API',
+    title='Wortel Unlimited API',
     description=('An API to handle requests for the mobile app '
-                 'Wordle Unlimited.'),
+                 'Wortel Unlimited.'),
     version="1.0.0",
     openapi_tags=tags,
     docs_url=f'{os.environ["API_ROOT_PATH"]}/',

@@ -2,7 +2,7 @@
 
 """Basic setup of the DB for testing.
 
-Before executing this script, set up a new empty database named 'wordle' and
+Before executing this script, set up a new empty database named 'wortel' and
 execute the init.sql script.
 
 This script is not used in Production. Credentials are dummies for testing.

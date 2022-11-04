@@ -1,13 +1,13 @@
-# Wordle Unlimited API <img src="https://user-images.githubusercontent.com/42039093/199140941-bb528bfe-a134-43b3-a6ea-1c8a0ca323fc.png" align="right" height = 120/>
+# Wortel Unlimited API <img src="https://user-images.githubusercontent.com/42039093/199140941-bb528bfe-a134-43b3-a6ea-1c8a0ca323fc.png" align="right" height = 120/>
 
-A FastAPI handling requests for the Android App Wordle Unlimited.
-* Android App GitHub Page: https://github.com/RudolfJagdhuber/WordleUnlimitedAndroid
-* Android App at Google Play: https://play.google.com/store/apps/details?id=de.datavisions.wordle
+A FastAPI handling requests for the Android App Wortel Unlimited.
+* Android App GitHub Page: https://github.com/RudolfJagdhuber/WortelUnlimitedAndroid
+* Android App at Google Play: https://play.google.com/store/apps/details?id=de.datavisions.wortel
 
 The Production Version of this API is deployed in a Kubernetes Cluster
 with a non-exposed MySQL Database.
 
-The official API is hosted on http://82.165.111.42/wordle/api/
+The official API is hosted on http://82.165.111.42/wortel/api/
 
 ![image](https://user-images.githubusercontent.com/42039093/199236657-a2a86638-f629-451a-badd-8171527e3e53.png)
 
@@ -17,7 +17,7 @@ The official API is hosted on http://82.165.111.42/wordle/api/
 The image of the most recent main branch version is openly available at
 DockerHub
 ```sh
-docker pull jagdhuber/wordle-api:latest
+docker pull jagdhuber/wortel-api:latest
 ```
 
 To run the docker image you need to have a mysql database running and supply at
@@ -44,12 +44,12 @@ used if the root of the API is not the webservers root.
 An example using the mysql:8.0.30 image from dockerhub (with default user
 *root* and password *my-secret*):
 ```sh
-docker run -d --name wordle-api -p 8080:8080 \
+docker run -d --name wortel-api -p 8080:8080 \
     -e DB_HOST='localhost' \
-    -e DB_DATABASE='wordle' \
+    -e DB_DATABASE='wortel' \
     -e DB_USER='root' \
     -e DB_PASSWORD='my-secret' \
-    jagdhuber/wordle-api:latest
+    jagdhuber/wortel-api:latest
 ```
 
 ## Usage
