@@ -7,7 +7,7 @@ A FastAPI handling requests for the Android App Wortel Unlimited.
 The Production Version of this API is deployed in a Kubernetes Cluster
 with a non-exposed MySQL Database.
 
-The official API is hosted on http://82.165.111.42/wortel/api/
+The official API is hosted on https://data-visions.de/wortel/api/
 
 ![image](https://user-images.githubusercontent.com/42039093/200065936-2638fe9b-64e2-47c7-a73e-d935abfc1fce.png)
 
